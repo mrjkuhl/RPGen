@@ -1,0 +1,35 @@
+.TH RPGEN 1 "11/19/2014" "0.1"
+.SH NAME
+rpgen \- Generate random passwords
+.SH SYNOPSIS
+.B rpgen
+[\fIoptions\fP]
+.SH DECRIPTION
+.B RPGen
+is a random password generator, capable of creating passwords of various lengths. A dictionary mode and a random mode are both supported, and any file of your choosing (preferably a kernel rng device) can be used as the seed of the generator.
+.SH OPTIONS
+.TP
+
+.BR \-l\ \fIlength\fR ", " \-\-length\ \fIlength\fR
+	The number of characters or words to be generated in the 
+	password.
+
+.TP
+.BR \-m\ \fImode\fR ", " \-\-mode\ \fImode\fR
+	The mode of password generation, random or dictionary.
+
+.TP
+.BR \-d\ \fIdictionary\fR ", " \-\-dictionary\ \fIdictionary\fR
+	The dictionary file to use for dictionary password 
+	generation.
+
+.TP
+.BR \-D\ \fIfile\fR ", " \-\-device\ \fIfile\fR
+	The file (preferably RNG device) to use for entropy.
+.TP
+.BR \-\-version\fR
+	Get the version and copyright information of RPGen.
+
+.TP
+.BR \-h ", " \-\-help\fR
+	Get usage information for RPGen.
