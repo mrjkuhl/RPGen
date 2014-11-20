@@ -15,18 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "main.h"
+#include "generate.h"
 
-int generateRandomPassword(char** password, int passwordLength, char* randomDevice);
-int generateDictionaryPassword(char** password, int passwordLength, char* dictionary, char* randomDevice);
 void printError(int errorCode);
 int getLineCount(FILE *filePointer);
 char* getDictionaryWord(int wordNumber, FILE *dictionaryPointer);
 unsigned long int sumString(char* string);
-
-const int MAXWORDSIZE = 45;
 
 int main(int argc, char *argv[]) {
 
@@ -127,88 +122,6 @@ int main(int argc, char *argv[]) {
 
 		printError(2);
 	}
-
-	return 0;
-}
-
-int generateRandomPassword(char** password, int passwordLength, char* randomDevice) {
-
-	int i;
-
-	FILE *devicePointer;
-	char* character = (char*)calloc(2, sizeof(char));
-
-	*password = (char*)calloc(passwordLength + 1, sizeof(char));
-
-	devicePointer = fopen(randomDevice, "r");
-
-	if (devicePointer == NULL) {
-
-		fprintf(stdout, "Random device \"%s\" could not be opened.\n", randomDevice);
-
-		return 1;
-	}
-
-	for (i = 0; i < passwordLength; i++) {
-
-		fscanf(devicePointer, "%c", &character[0]);
-
-		character[0] = (abs(character[0]) % 95) + 32;
-		strcat(*password, character);
-	}
-
-	fclose(devicePointer);
-	free(character);
-
-	return 0;
-}
-
-int generateDictionaryPassword(char** password, int passwordLength, char* dictionary, char* randomDevice) {
-
-	int i;
-	int lineCount;
-
-	FILE *devicePointer;
-	FILE *dictionaryPointer;
-	char* word;
-	char* seed = (char*)calloc(101, sizeof(char));
-
-	*password = (char*)calloc(passwordLength * MAXWORDSIZE + 1, sizeof(char));
-
-	devicePointer = fopen(randomDevice, "r");
-
-	if (devicePointer == NULL) {
-
-		fprintf(stdout, "Random device \"%s\" could not be opened.\n", randomDevice);
-
-		return 1;
-	}
-
-	dictionaryPointer = fopen(dictionary, "r");
-
-	if (dictionaryPointer == NULL) {
-
-		fprintf(stdout, "Dictionary \"%s\" could not be opened.\n", dictionary);
-
-		return 2;
-	}
-
-	fread(seed, sizeof(char), 100, devicePointer);
-
-	srand(sumString(seed));
-	free(seed);
-
-	lineCount = getLineCount(dictionaryPointer);
-
-	for (i = 0; i < passwordLength; i++) {
-
-		word = getDictionaryWord((rand() % lineCount), dictionaryPointer);
-		strcat(*password, word);
-		free(word);
-	}
-
-	fclose(devicePointer);
-	fclose(dictionaryPointer);
 
 	return 0;
 }
