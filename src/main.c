@@ -19,8 +19,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-char* generateRandomPassword(int passwordLength, char* randomDevice);
-char* generateDictionaryPassword(int passwordLength, char* dictionary, char* randomDevice);
+int generateRandomPassword(char** password, int passwordLength, char* randomDevice);
+int generateDictionaryPassword(char** password, int passwordLength, char* dictionary, char* randomDevice);
 void printError(int errorCode);
 int getLineCount(FILE *filePointer);
 char* getDictionaryWord(int wordNumber, FILE *dictionaryPointer);
@@ -86,7 +86,11 @@ int main(int argc, char *argv[]) {
 			passwordLength = 16;
 		}
 
-		password = generateRandomPassword(passwordLength, randomDevice);
+		if(generateRandomPassword(&password, passwordLength, randomDevice) != 0) {
+
+			printError(2);
+			return 2;
+		}
 	}
 
 	else if (modeType == 2) {
@@ -101,7 +105,11 @@ int main(int argc, char *argv[]) {
 			dictionary = "dictionary";
 		}
 
-		password = generateDictionaryPassword(passwordLength, dictionary, randomDevice);
+		if(generateDictionaryPassword(&password, passwordLength, dictionary, randomDevice) != 0) {
+
+			printError(2);
+			return 2;
+		}
 	}
 
 	else {
@@ -123,13 +131,14 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-char* generateRandomPassword(int passwordLength, char* randomDevice) {
+int generateRandomPassword(char** password, int passwordLength, char* randomDevice) {
 
 	int i;
 
 	FILE *devicePointer;
-	char* password = (char*)calloc(passwordLength + 1, sizeof(char));
 	char* character = (char*)calloc(2, sizeof(char));
+
+	*password = (char*)calloc(passwordLength + 1, sizeof(char));
 
 	devicePointer = fopen(randomDevice, "r");
 
@@ -137,7 +146,7 @@ char* generateRandomPassword(int passwordLength, char* randomDevice) {
 
 		fprintf(stdout, "Random device \"%s\" could not be opened.\n", randomDevice);
 
-		return "";
+		return 1;
 	}
 
 	for (i = 0; i < passwordLength; i++) {
@@ -145,16 +154,16 @@ char* generateRandomPassword(int passwordLength, char* randomDevice) {
 		fscanf(devicePointer, "%c", &character[0]);
 
 		character[0] = (abs(character[0]) % 95) + 32;
-		strcat(password, character);
+		strcat(*password, character);
 	}
 
 	fclose(devicePointer);
 	free(character);
 
-	return password;
+	return 0;
 }
 
-char* generateDictionaryPassword(int passwordLength, char* dictionary, char* randomDevice) {
+int generateDictionaryPassword(char** password, int passwordLength, char* dictionary, char* randomDevice) {
 
 	int i;
 	int lineCount;
@@ -163,7 +172,8 @@ char* generateDictionaryPassword(int passwordLength, char* dictionary, char* ran
 	FILE *dictionaryPointer;
 	char* word;
 	char* seed = (char*)calloc(101, sizeof(char));
-	char* password = (char*)calloc(passwordLength * MAXWORDSIZE + 1, sizeof(char));
+
+	*password = (char*)calloc(passwordLength * MAXWORDSIZE + 1, sizeof(char));
 
 	devicePointer = fopen(randomDevice, "r");
 
@@ -171,7 +181,7 @@ char* generateDictionaryPassword(int passwordLength, char* dictionary, char* ran
 
 		fprintf(stdout, "Random device \"%s\" could not be opened.\n", randomDevice);
 
-		return "";
+		return 1;
 	}
 
 	dictionaryPointer = fopen(dictionary, "r");
@@ -180,7 +190,7 @@ char* generateDictionaryPassword(int passwordLength, char* dictionary, char* ran
 
 		fprintf(stdout, "Dictionary \"%s\" could not be opened.\n", dictionary);
 
-		return "";
+		return 2;
 	}
 
 	fread(seed, sizeof(char), 100, devicePointer);
@@ -193,14 +203,14 @@ char* generateDictionaryPassword(int passwordLength, char* dictionary, char* ran
 	for (i = 0; i < passwordLength; i++) {
 
 		word = getDictionaryWord((rand() % lineCount), dictionaryPointer);
-		strcat(password, word);
+		strcat(*password, word);
 		free(word);
 	}
 
 	fclose(devicePointer);
 	fclose(dictionaryPointer);
 
-	return password;
+	return 0;
 }
 
 char* getDictionaryWord(int wordNumber, FILE *dictionaryPointer) {
