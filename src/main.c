@@ -17,6 +17,7 @@
 
 #include "main.h"
 #include "generate.h"
+#include "config.h"
 #include "file.h"
 #include "error.h"
 
