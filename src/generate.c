@@ -9,11 +9,7 @@ int generateRandomPassword(char** password, int passwordLength, char* randomDevi
 
 	*password = (char*)calloc(passwordLength + 1, sizeof(char));
 
-	devicePointer = fopen(randomDevice, "r");
-
-	if (devicePointer == NULL) {
-
-		fprintf(stdout, "Random device \"%s\" could not be opened.\n", randomDevice);
+	if (openFile(&devicePointer, randomDevice) != 0) {
 
 		return 1;
 	}
@@ -44,22 +40,14 @@ int generateDictionaryPassword(char** password, int passwordLength, char* dictio
 
 	*password = (char*)calloc(passwordLength * MAXWORDSIZE + 1, sizeof(char));
 
-	devicePointer = fopen(randomDevice, "r");
-
-	if (devicePointer == NULL) {
-
-		fprintf(stdout, "Random device \"%s\" could not be opened.\n", randomDevice);
+	if (openFile(&devicePointer, randomDevice) != 0) {
 
 		return 1;
 	}
 
-	dictionaryPointer = fopen(dictionary, "r");
+	if (openFile(&dictionaryPointer, dictionary) != 0) {
 
-	if (dictionaryPointer == NULL) {
-
-		fprintf(stdout, "Dictionary \"%s\" could not be opened.\n", dictionary);
-
-		return 2;
+		return 1;
 	}
 
 	fread(seed, sizeof(char), 100, devicePointer);

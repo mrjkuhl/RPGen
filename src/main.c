@@ -17,6 +17,7 @@
 
 #include "main.h"
 #include "generate.h"
+#include "file.h"
 #include "error.h"
 
 int main(int argc, char *argv[]) {
@@ -146,21 +147,6 @@ char* getDictionaryWord(int wordNumber, FILE *dictionaryPointer) {
 	fseek(dictionaryPointer, 0, SEEK_SET);
 
 	return word;
-}
-
-int getLineCount(FILE *filePointer) {
-
-	int count = 0;
-	char line[(MAXWORDSIZE + 1)];
-
-	while (fgets(line, sizeof(line), filePointer)) {
-
-		count++;
-	}
-
-	fseek(filePointer, 0, SEEK_SET);
-
-	return count;
 }
 
 unsigned long int sumString(char* string) {
