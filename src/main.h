@@ -7,4 +7,9 @@
 
 const int MAXWORDSIZE = 45;
 
+void printError(int errorCode);
+int getLineCount(FILE *filePointer);
+char* getDictionaryWord(int wordNumber, FILE *dictionaryPointer);
+unsigned long int sumString(char* string);
+
 #endif

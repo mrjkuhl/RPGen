@@ -18,11 +18,6 @@
 #include "main.h"
 #include "generate.h"
 
-void printError(int errorCode);
-int getLineCount(FILE *filePointer);
-char* getDictionaryWord(int wordNumber, FILE *dictionaryPointer);
-unsigned long int sumString(char* string);
-
 int main(int argc, char *argv[]) {
 
 	char* randomDevice = "";
