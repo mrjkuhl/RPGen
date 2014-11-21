@@ -17,6 +17,7 @@
 
 #include "main.h"
 #include "generate.h"
+#include "error.h"
 
 int main(int argc, char *argv[]) {
 
@@ -175,11 +176,3 @@ unsigned long int sumString(char* string) {
 
 	return stringSum;
 }
-
-void printError(int errorCode) {
-
-	fprintf(stdout, "kek, %d\n", errorCode);
-
-	return;
-}
-
