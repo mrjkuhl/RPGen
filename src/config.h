@@ -2,8 +2,12 @@
 #define __CONFIG_H__
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 extern const int MAXWORDSIZE;
 
+const int MAXLINESIZE = 100;
+
+int readConfigOption(char** optionValue, char* configOption, FILE* configPointer);
 #endif

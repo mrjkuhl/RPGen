@@ -16,34 +16,25 @@
  */
 
 #include "main.h"
-#include "generate.h"
-#include "config.h"
-#include "file.h"
-#include "error.h"
 
 int main(int argc, char *argv[]) {
 
+	FILE* configPointer;
+
 	char* randomDevice = "";
 	char* dictionary = "";
+	char* modeType = "";
+	char* tmp = "";
 	char* password;
 
 	int passwordLength = 0;
-	int modeType = 0;
 	int i;
 
 	for (i = 1; i < argc; i ++) {
 
 		if (strcmp(argv[i], "-m") == 0 || strcmp(argv[i], "--mode") == 0) {
 
-			if (strcmp(argv[(i + 1)], "random") == 0) {
-
-				modeType = 1;
-			}
-
-			else if (strcmp(argv[(i + 1)], "dictionary") == 0) {
-
-				modeType = 2;
-			}
+			modeType = argv[(i + 1)];
 		}
 
 		else if (strcmp(argv[i], "-l") == 0 || strcmp(argv[i], "--length") == 0) {
@@ -62,9 +53,22 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	if (randomDevice[0] == '\0') {
+	if (openFile(&configPointer, "/etc/rpgen/rpgen.conf") != 0) {
 
-		randomDevice = "/dev/urandom";
+		printError(1);
+		return 1;
+	}
+
+	if (randomDevice[0] == '\0' && readConfigOption(&randomDevice, "DEFAULTRNGDEVICE", configPointer) != 0) {
+
+		printError(1);
+		return 1;
+	}
+
+	if (modeType[0] == '\0' && readConfigOption(&modeType, "DEFAULTPASSWORDMODE", configPointer) != 0) {
+
+		printError(1);
+		return 1;
 	}
 
 	if (passwordLength < 0) {
@@ -72,11 +76,17 @@ int main(int argc, char *argv[]) {
 		printError(2);
 	}
 
-	if (modeType == 1 || modeType == 0) {
+	if (strcmp(modeType, "random") == 0) {
 
-		if (passwordLength == 0) {
+		if (passwordLength == 0 && readConfigOption(&tmp, "DEFAULTPASSWORDLENGTHRANDOM", configPointer) != 0) {
 
-			passwordLength = 16;
+			printError(1);
+			return 1;
+		}
+
+		if (tmp[0] != '\0') {
+
+			passwordLength = atoi(tmp);
 		}
 
 		if(generateRandomPassword(&password, passwordLength, randomDevice) != 0) {
@@ -86,16 +96,23 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	else if (modeType == 2) {
+	else if (strcmp(modeType, "dictionary") == 0) {
 
-		if (passwordLength == 0) {
+		if (passwordLength == 0 && readConfigOption(&tmp, "DEFAULTPASSWORDLENGTHDICTIONARY", configPointer) != 0) {
 
-			passwordLength = 4;
+			printError(1);
+			return 1;
 		}
 
-		if (dictionary[0] == '\0') {
+		if (tmp[0] != '\0') {
 
-			dictionary = "dictionary";
+			passwordLength = atoi(tmp);
+		}
+
+		if (dictionary[0] == '\0' && readConfigOption(&dictionary, "DEFAULTDICTIONARY", configPointer) != 0) {
+
+			printError(1);
+			return 1;
 		}
 
 		if(generateDictionaryPassword(&password, passwordLength, dictionary, randomDevice) != 0) {
@@ -124,7 +141,7 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-char* getDictionaryWord(int wordNumber, FILE *dictionaryPointer) {
+char* getDictionaryWord(int wordNumber, FILE* dictionaryPointer) {
 
 	int count = 0;
 	int wordLength;

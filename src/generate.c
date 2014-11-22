@@ -4,7 +4,7 @@ int generateRandomPassword(char** password, int passwordLength, char* randomDevi
 
 	int i;
 
-	FILE *devicePointer;
+	FILE* devicePointer;
 	char* character = (char*)calloc(2, sizeof(char));
 
 	*password = (char*)calloc(passwordLength + 1, sizeof(char));
@@ -33,8 +33,8 @@ int generateDictionaryPassword(char** password, int passwordLength, char* dictio
 	int i;
 	int lineCount;
 
-	FILE *devicePointer;
-	FILE *dictionaryPointer;
+	FILE* devicePointer;
+	FILE* dictionaryPointer;
 	char* word;
 	char* seed = (char*)calloc(101, sizeof(char));
 

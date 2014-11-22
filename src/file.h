@@ -6,6 +6,6 @@
 extern const int MAXWORDSIZE;
 
 int openFile(FILE** filePointer, char* fileName);
-int getLineCount(FILE *filePointer);
+int getLineCount(FILE* filePointer);
 
 #endif

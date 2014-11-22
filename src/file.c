@@ -14,7 +14,7 @@ int openFile(FILE** filePointer, char* fileName) {
 	return 0;
 }
 
-int getLineCount(FILE *filePointer) {
+int getLineCount(FILE* filePointer) {
 
 	int count = 0;
 	char line[(MAXWORDSIZE + 1)];

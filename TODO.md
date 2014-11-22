@@ -1,3 +1,3 @@
 Release 0.2
 -----------
-- Add configuration functionality.
+- Cleanup/consolidate function calls.
