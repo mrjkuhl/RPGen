@@ -65,10 +65,15 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 
-	if (modeType[0] == '\0' && readConfigOption(&modeType, "DEFAULTPASSWORDMODE", configPointer) != 0) {
+	if (modeType[0] == '\0' && readConfigOption(&tmp, "DEFAULTPASSWORDMODE", configPointer) != 0) {
 
 		printError(1);
 		return 1;
+	}
+
+	else if (modeType[0] == '\0') {
+
+		modeType = tmp;
 	}
 
 	if (passwordLength < 0) {
@@ -77,6 +82,11 @@ int main(int argc, char *argv[]) {
 	}
 
 	if (strcmp(modeType, "random") == 0) {
+
+		if (strcmp(modeType, tmp) == 0) {
+
+			free(tmp);
+		}
 
 		if (passwordLength == 0 && readConfigOption(&tmp, "DEFAULTPASSWORDLENGTHRANDOM", configPointer) != 0) {
 
@@ -87,6 +97,7 @@ int main(int argc, char *argv[]) {
 		if (tmp[0] != '\0') {
 
 			passwordLength = atoi(tmp);
+			free(tmp);
 		}
 
 		if(generateRandomPassword(&password, passwordLength, randomDevice) != 0) {
@@ -98,6 +109,11 @@ int main(int argc, char *argv[]) {
 
 	else if (strcmp(modeType, "dictionary") == 0) {
 
+		if (strcmp(modeType, tmp) == 0) {
+
+			free(tmp);
+		}
+
 		if (passwordLength == 0 && readConfigOption(&tmp, "DEFAULTPASSWORDLENGTHDICTIONARY", configPointer) != 0) {
 
 			printError(1);
@@ -107,18 +123,29 @@ int main(int argc, char *argv[]) {
 		if (tmp[0] != '\0') {
 
 			passwordLength = atoi(tmp);
+			free(tmp);
 		}
 
-		if (dictionary[0] == '\0' && readConfigOption(&dictionary, "DEFAULTDICTIONARY", configPointer) != 0) {
+		if (dictionary[0] == '\0' && readConfigOption(&tmp, "DEFAULTDICTIONARY", configPointer) != 0) {
 
 			printError(1);
 			return 1;
+		}
+
+		else if (dictionary[0] == '\0') {
+
+			dictionary = tmp;
 		}
 
 		if(generateDictionaryPassword(&password, passwordLength, dictionary, randomDevice) != 0) {
 
 			printError(2);
 			return 2;
+		}
+
+		if (strcmp(dictionary, tmp) == 0) {
+
+			free(tmp);
 		}
 	}
 
@@ -131,12 +158,15 @@ int main(int argc, char *argv[]) {
 
 	fprintf(stdout, "Password: %s\n", password);
 
-	free(password);
-
 	if (ferror(stdout)) {
 
 		printError(2);
 	}
+
+	fclose(configPointer);
+
+	free(randomDevice);
+	free(password);
 
 	return 0;
 }
