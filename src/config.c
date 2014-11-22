@@ -15,9 +15,13 @@ int readConfigOption(char** optionValue, char* configOption, FILE* configPointer
 
 			*optionValue = value;
 
+			fseek(filePointer, 0, SEEK_SET);
+
 			return 0;
 		}
 	}
+
+	fseek(filePointer, 0, SEEK_SET);
 
 	return 1;
 }
