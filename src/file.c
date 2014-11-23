@@ -33,9 +33,9 @@ int getLineNumber(char** line, int lineNumber, FILE* filePointer) {
 
 	int count = 0;
 	int lineLength;
-	char* targetLine = (char*)calloc(MAXWORDSIZE + 1, sizeof(char));
+	*line = (char*)calloc(MAXWORDSIZE + 1, sizeof(char));
 
-	while (fgets(targetLine, MAXWORDSIZE, filePointer)) {
+	while (fgets(*line, MAXWORDSIZE, filePointer)) {
 
 		if (++count == lineNumber) {
 
@@ -43,9 +43,7 @@ int getLineNumber(char** line, int lineNumber, FILE* filePointer) {
 		}
 	}
 
-	stripString(targetLine);
-
-	*line = targetLine;
+	stripString(*line);
 
 	fseek(filePointer, 0, SEEK_SET);
 
