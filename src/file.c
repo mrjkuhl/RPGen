@@ -43,7 +43,7 @@ int getLineNumber(char** line, int lineNumber, FILE* filePointer) {
 		}
 	}
 
-	stripString(&targetLine);
+	stripString(targetLine);
 
 	*line = targetLine;
 

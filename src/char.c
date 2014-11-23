@@ -1,16 +1,13 @@
 #include "char.h"
 
-int stripString(char** string) {
+int stripString(char* string) {
 
-	char* tmp = *string;
-	int lastChar = strlen(tmp) - 1;
+	int lastChar = strlen(string) - 1;
 
-	if (tmp[lastChar] == '\n' || tmp[lastChar] == EOF) {
+	if (string[lastChar] == '\n' || string[lastChar] == EOF) {
 
-		tmp[lastChar] = '\0';
+		string[lastChar] = '\0';
 	}
-
-	*string = tmp;
 
 	return 0;
 }
