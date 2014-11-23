@@ -39,13 +39,17 @@ int getLineNumber(char** line, int lineNumber, FILE* filePointer) {
 
 		if (++count == lineNumber) {
 
-			break;
+			stripString(*line);
+
+			fseek(filePointer, 0, SEEK_SET);
+
+			return 0;
 		}
 	}
 
-	stripString(*line);
-
 	fseek(filePointer, 0, SEEK_SET);
 
-	return 0;
+	printError(1);
+
+	return 1;
 }
