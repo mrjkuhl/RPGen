@@ -170,17 +170,3 @@ int main(int argc, char *argv[]) {
 
 	return 0;
 }
-
-unsigned long int sumString(char* string) {
-
-	int i;
-	int stringLength = strlen(string);
-	unsigned long int stringSum = 0;
-
-	for (i = 0; i < stringLength; i++) {
-
-		stringSum += string[i];
-	}
-
-	return stringSum;
-}

@@ -7,6 +7,4 @@
 
 const int MAXWORDSIZE = 45;
 
-unsigned long int sumString(char* string);
-
 #endif

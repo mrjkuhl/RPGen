@@ -43,12 +43,7 @@ int getLineNumber(char** line, int lineNumber, FILE* filePointer) {
 		}
 	}
 
-	lineLength = strlen(targetLine) - 1;
-
-	if (targetLine[lineLength] == '\n') {
-
-		targetLine[lineLength] = '\0';
-	}
+	stripString(&targetLine);
 
 	*line = targetLine;
 

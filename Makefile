@@ -4,7 +4,7 @@ CC=gcc
 INSTALLDATA= install -c -m 644
 CONFDIR= /etc/rpgen
 
-SOURCES= src/main.c src/generate.c src/config.c src/file.c src/error.c
+SOURCES= src/main.c src/generate.c src/config.c src/file.c src/char.c src/error.c
 OBJECTS= $(SOURCES:.c=.o)
 EXECUTABLE= rpgen
 
