@@ -59,7 +59,7 @@ int generateDictionaryPassword(char** password, int passwordLength, char* dictio
 
 	for (i = 0; i < passwordLength; i++) {
 
-		word = getDictionaryWord((rand() % lineCount), dictionaryPointer);
+		getLineNumber(&word, (rand() % lineCount), dictionaryPointer);
 		strcat(*password, word);
 		free(word);
 	}

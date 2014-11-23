@@ -29,3 +29,30 @@ int getLineCount(FILE* filePointer) {
 	return count;
 }
 
+int getLineNumber(char** line, int lineNumber, FILE* filePointer) {
+
+	int count = 0;
+	int lineLength;
+	char* targetLine = (char*)calloc(MAXWORDSIZE + 1, sizeof(char));
+
+	while (fgets(targetLine, MAXWORDSIZE, filePointer)) {
+
+		if (++count == lineNumber) {
+
+			break;
+		}
+	}
+
+	lineLength = strlen(targetLine) - 1;
+
+	if (targetLine[lineLength] == '\n') {
+
+		targetLine[lineLength] = '\0';
+	}
+
+	*line = targetLine;
+
+	fseek(filePointer, 0, SEEK_SET);
+
+	return 0;
+}

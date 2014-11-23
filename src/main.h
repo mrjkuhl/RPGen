@@ -7,7 +7,6 @@
 
 const int MAXWORDSIZE = 45;
 
-char* getDictionaryWord(int wordNumber, FILE* dictionaryPointer);
 unsigned long int sumString(char* string);
 
 #endif

@@ -171,32 +171,6 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-char* getDictionaryWord(int wordNumber, FILE* dictionaryPointer) {
-
-	int count = 0;
-	int wordLength;
-	char* word = (char*)calloc(MAXWORDSIZE, sizeof(char));
-
-	while (fgets(word, MAXWORDSIZE, dictionaryPointer)) {
-
-		if (++count == wordNumber) {
-
-			break;
-		}
-	}
-
-	wordLength = strlen(word) - 1;
-
-	if (word[wordLength] == '\n') {
-
-		word[wordLength] = '\0';
-	}
-
-	fseek(dictionaryPointer, 0, SEEK_SET);
-
-	return word;
-}
-
 unsigned long int sumString(char* string) {
 
 	int i;
