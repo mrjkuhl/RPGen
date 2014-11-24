@@ -56,7 +56,7 @@ int getLineNumber(char** line, int lineNumber, FILE* filePointer) {
 
 	while (fgets(*line, MAXWORDSIZE, filePointer)) {
 
-		if (++count == lineNumber) {
+		if (count++ == lineNumber) {
 
 			stripString(*line);
 
