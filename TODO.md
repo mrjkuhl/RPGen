@@ -1,3 +1,5 @@
-Release 0.2
+Release 0.3
 -----------
-- Cleanup/consolidate function calls.
+- Add error messages, and call appropriate error from each printError() call
+- Add --version argument
+- Add help information
