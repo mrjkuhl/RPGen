@@ -1,7 +1,7 @@
 NSAFlood
 --------
 
-This directory contains the 0.1 release of RPGen.
+This directory contains the 0.2 release of RPGen.
 
 About
 -----
