@@ -9,5 +9,5 @@ extern const int MAXWORDSIZE;
 
 const int MAXLINESIZE = 100;
 
-int readConfigOption(char** optionValue, char* configOption, FILE* configPointer);
+int readConfigOption(char** value, char* configOption, FILE* configPointer);
 #endif
