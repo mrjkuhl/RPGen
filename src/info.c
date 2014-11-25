@@ -17,18 +17,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "error.h"
+#include "info.h"
 
-void printError(int errorCode) {
+int printVersion() {
 
-	fprintf(stdout, "kek, %d\n", errorCode);
+	fprintf(stdout, "%s\n", VERSIONINFO);
 
-	return;
+	if (ferror(stdout) == 0) {
+
+		return 0;
+	}
+
+	printError(1);
+	return 1;
 }
 
-int invalidArgument(char* argument) {
+int printHelp() {
 
-	fprintf(stdout, "%s%s%s\n", INVALIDARGUMENT[0], argument, INVALIDARGUMENT[1]);
+	fprintf(stdout, "%s\n", HELPINFO);
 
 	if (ferror(stdout) == 0) {
 

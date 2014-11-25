@@ -53,6 +53,36 @@ int main(int argc, char *argv[]) {
 
 			randomDevice = argv[(i + 1)];
 		}
+
+		else if (strcmp(argv[i], "--help") == 0) {
+
+			if (printHelp() == 0) {
+
+				return 0;
+			}
+
+			return 1;
+		}
+
+		else if (strcmp(argv[i], "--version") == 0) {
+
+			if (printVersion() == 0) {
+
+				return 0;
+			}
+
+			return 1;
+		}
+
+		else {
+
+			if (invalidArgument(argv[i]) == 0) {
+
+				return 0;
+			}
+
+			return 1;
+		}
 	}
 
 	if (openFile(&configPointer, "/etc/rpgen/rpgen.conf") != 0) {
