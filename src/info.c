@@ -29,7 +29,7 @@ int printVersion() {
 	}
 
 	printError(1);
-	return 1;
+	return ERRORVALUE;
 }
 
 int printHelp() {
@@ -42,5 +42,5 @@ int printHelp() {
 	}
 
 	printError(1);
-	return 1;
+	return ERRORVALUE;
 }

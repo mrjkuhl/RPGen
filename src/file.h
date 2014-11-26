@@ -6,6 +6,7 @@
 #include <string.h>
 
 extern const int MAXWORDSIZE;
+extern int ERRORVALUE;
 
 int openFile(FILE** filePointer, char* fileName);
 int getLineCount(FILE* filePointer);

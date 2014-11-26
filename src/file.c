@@ -23,11 +23,10 @@ int openFile(FILE** filePointer, char* fileName) {
 
 	*filePointer = fopen(fileName, "r");
 
-	if (filePointer == NULL) {
+	if (*filePointer == NULL) {
 
-		printError(1);
-
-		return 1;
+		printError(3);
+		return ERRORVALUE;
 	}
 
 	return 0;
@@ -68,7 +67,6 @@ int getLineNumber(char** line, int lineNumber, FILE* filePointer) {
 
 	fseek(filePointer, 0, SEEK_SET);
 
-	printError(1);
-
-	return 1;
+	printError(5);
+	return ERRORVALUE;
 }

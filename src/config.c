@@ -40,7 +40,7 @@ int readConfigOption(char** value, char* configOption, FILE* configPointer) {
 
 	fseek(configPointer, 0, SEEK_SET);
 
-	printError(1);
+	printError(2);
 
-	return 1;
+	return ERRORVALUE;
 }

@@ -6,6 +6,7 @@
 #include <string.h>
 
 extern const int MAXWORDSIZE;
+extern int ERRORVALUE;
 
 const int MAXLINESIZE = 100;
 

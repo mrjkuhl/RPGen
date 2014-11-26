@@ -6,5 +6,6 @@
 #include <string.h>
 
 const int MAXWORDSIZE = 45;
+extern int ERRORVALUE;
 
 #endif

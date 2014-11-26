@@ -30,7 +30,7 @@ int generateRandomPassword(char** password, int passwordLength, char* randomDevi
 
 	if (openFile(&devicePointer, randomDevice) != 0) {
 
-		return 1;
+		return ERRORVALUE;
 	}
 
 	for (i = 0; i < passwordLength; i++) {
@@ -61,12 +61,12 @@ int generateDictionaryPassword(char** password, int passwordLength, char* dictio
 
 	if (openFile(&devicePointer, randomDevice) != 0) {
 
-		return 1;
+		return ERRORVALUE;
 	}
 
 	if (openFile(&dictionaryPointer, dictionary) != 0) {
 
-		return 1;
+		return ERRORVALUE;
 	}
 
 	fread(seed, sizeof(char), 100, devicePointer);

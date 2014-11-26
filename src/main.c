@@ -108,7 +108,7 @@ int main(int argc, char *argv[]) {
 	if (passwordLength < 0) {
 
 		printError(4);
-		return 4;
+		return ERRORVALUE;
 	}
 
 	if (strcmp(modeType, "random") == 0) {
@@ -131,8 +131,7 @@ int main(int argc, char *argv[]) {
 
 		if(generateRandomPassword(&password, passwordLength, randomDevice) != 0) {
 
-			printError(4);
-			return 4;
+			return ERRORVALUE;
 		}
 	}
 
@@ -166,8 +165,7 @@ int main(int argc, char *argv[]) {
 
 		if(generateDictionaryPassword(&password, passwordLength, dictionary, randomDevice) != 0) {
 
-			printError(4);
-			return 4;
+			return ERRORVALUE;
 		}
 
 		if (strcmp(dictionary, tmp) == 0) {
@@ -178,8 +176,8 @@ int main(int argc, char *argv[]) {
 
 	else {
 
-		printError(5);
-		return 5;
+		printError(4);
+		return ERRORVALUE;
 	}
 
 	fprintf(stdout, "Password: %s\n", password);
@@ -187,7 +185,7 @@ int main(int argc, char *argv[]) {
 	if (ferror(stdout)) {
 
 		printError(1);
-		return 1;
+		return ERRORVALUE;
 	}
 
 	fclose(configPointer);

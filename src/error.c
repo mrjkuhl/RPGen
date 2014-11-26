@@ -21,14 +21,16 @@
 
 void printError(int errorCode) {
 
-	fprintf(stdout, "kek, %d\n", errorCode);
+	ERRORVALUE=errorCode;
+
+	fprintf(stdout, "Error: %s\nExiting...\n", ERRORTEXT.errorText[--errorCode]);
 
 	return;
 }
 
 int invalidArgument(char* argument) {
 
-	fprintf(stdout, "%s%s%s\n", INVALIDARGUMENT[0], argument, INVALIDARGUMENT[1]);
+	fprintf(stdout, "%s%s%s\n", ERRORTEXT.invalidArgument[0], argument, ERRORTEXT.invalidArgument[1]);
 
 	if (ferror(stdout) == 0) {
 
@@ -36,5 +38,5 @@ int invalidArgument(char* argument) {
 	}
 
 	printError(1);
-	return 1;
+	return ERRORVALUE;
 }

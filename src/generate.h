@@ -6,6 +6,7 @@
 #include <string.h>
 
 extern const int MAXWORDSIZE;
+extern int ERRORVALUE;
 
 int generateRandomPassword(char** password, int passwordLength, char* randomDevice);
 int generateDictionaryPassword(char** password, int passwordLength, char* dictionary, char* randomDevice);
