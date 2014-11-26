@@ -13,7 +13,7 @@ struct errorText {
 
 struct errorText ERRORTEXT = {
 	
-	.errorText[0] = "Could not write to STDOUT.",
+	.errorText[0] = "Could not write to file.",
 	.errorText[1] = "Not enough options.",
 	.errorText[2] = "Could not open file.",
 	.errorText[3] = "Invalid argument value.",
