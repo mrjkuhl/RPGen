@@ -2,7 +2,7 @@
 
 CC=gcc
 
-SOURCES= main.c generate.c config.c file.c char.c info.c error.c
+SOURCES= main.c generate.c config.c file.c char.c rand.c info.c error.c
 OBJECTS= $(SOURCES:.c=.o)
 
 all: $(SOURCES) $(OBJECTS)

@@ -55,7 +55,6 @@ int generateDictionaryPassword(char** password, int passwordLength, char* dictio
 	FILE* devicePointer;
 	FILE* dictionaryPointer;
 	char* word;
-	char* seed = (char*)calloc(101, sizeof(char));
 
 	*password = (char*)calloc(passwordLength * MAXWORDSIZE + 1, sizeof(char));
 
@@ -69,10 +68,7 @@ int generateDictionaryPassword(char** password, int passwordLength, char* dictio
 		return ERRORVALUE;
 	}
 
-	fread(seed, sizeof(char), 100, devicePointer);
-
-	srand(sumString(seed));
-	free(seed);
+	seedRand(devicePointer);
 
 	lineCount = getLineCount(dictionaryPointer);
 
